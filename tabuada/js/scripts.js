@@ -5,30 +5,32 @@ const multiplicationInput = document.querySelector("#multiplicator");
 const operationsContainer = document.querySelector(
   "#multiplication-operations"
 );
-const multiplicationTable = document.querySelector("#multiplicator-operations");
+const titleSpan = document.querySelector("#title-span");
 
 // Função para criar a tabuada
 const createTable = (number, multiplicatorNumber) => {
   operationsContainer.innerHTML = "";
 
-  for (i = 1; i <= multiplicatorNumber; i++) {
+  for (let i = 1; i <= multiplicatorNumber; i++) {
     const result = number * i;
 
-    const templete = `<div class="row> 
-    <div class="operation">${number} x ${i} =</div>
-    <div class="result">${result}</div> 
-    </div>`;
+    const template = `
+      <div class="row"> 
+        <div class="operation">${number} x ${i} =</div>
+        <div class="result">${result}</div> 
+      </div>
+    `;
+
+    operationsContainer.innerHTML += template;
   }
 };
+
 // Evento de envio do formulário
 multiplicationForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
   const multiplicationNumber = +numberInput.value;
   const multiplicatorNumber = +multiplicationInput.value;
-
-  console.log("Número base:", multiplicationNumber);
-  console.log("Multiplicar até:", multiplicatorNumber);
 
   if (!multiplicationNumber || !multiplicatorNumber) {
     console.log("Por favor, preencha os dois campos com números válidos.");
