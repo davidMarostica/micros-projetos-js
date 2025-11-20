@@ -49,7 +49,11 @@ Se o usuário digitar:
 - Multiplicar até: `5`
 
 O resultado será:
-3 x 1 = 3 3 x 2 = 6 3 x 3 = 9 3 x 4 = 12 3 x 5 = 15
+3 x 1 = 3
+3 x 2 = 6
+3 x 3 = 9
+3 x 4 = 12
+3 x 5 = 15
 
 ---
 
