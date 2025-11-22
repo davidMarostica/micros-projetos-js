@@ -39,6 +39,7 @@ const data = [
 
 // Seleção de elementos
 const imcTable = document.querySelector("#imc-table");
+
 const heightInput = document.querySelector("#height");
 const weightInput = document.querySelector("#weight");
 const calcBtn = document.querySelector("#calc-btn");
@@ -103,6 +104,7 @@ createTable(data);
 [heightInput, weightInput].forEach((el) => {
   el.addEventListener("input", (e) => {
     const updatedValue = validDigits(e.target.value);
+
     e.target.value = updatedValue;
   });
 });
@@ -112,6 +114,8 @@ calcBtn.addEventListener("click", (e) => {
 
   const weight = +weightInput.value.replace(",", ".");
   const height = +heightInput.value.replace(",", ".");
+
+  console.log(weight, height);
 
   if (!weight || !height) return;
 
@@ -139,16 +143,16 @@ calcBtn.addEventListener("click", (e) => {
       imcInfo.classList.add("good");
       break;
     case "Sobrepeso":
+      imcNumber.classList.add("low");
+      imcInfo.classList.add("low");
+      break;
+    case "Obesidade":
       imcNumber.classList.add("medium");
       imcInfo.classList.add("medium");
       break;
-    case "Obesidade":
+    case "Obesidade grave":
       imcNumber.classList.add("high");
       imcInfo.classList.add("high");
-      break;
-    case "Obesidade grave":
-      imcNumber.classList.add("very-high");
-      imcInfo.classList.add("very-high");
       break;
   }
 
@@ -157,6 +161,7 @@ calcBtn.addEventListener("click", (e) => {
 
 clearBtn.addEventListener("click", (e) => {
   e.preventDefault();
+
   cleanInputs();
 });
 
@@ -164,4 +169,3 @@ backBtn.addEventListener("click", (e) => {
   cleanInputs();
   showOrHideResults();
 });
-``;
