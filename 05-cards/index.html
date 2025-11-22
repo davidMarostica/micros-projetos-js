@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema de Cards de Estudos</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Sistema de Cards de Estudos</h1>
+        <p>Organize e revise seus conhecimentos</p>
+      </header>
+
+      <div class="search-section">
+        <div class="search-box">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Pesquisar perguntas..."
+          />
+          <button class="btn btn-primary" id="search-btn">Buscar</button>
+          <button class="btn btn-secondary" id="clear-search">Limpar</button>
+        </div>
+        <div class="filter-options">
+          <select id="difficulty-filter" class="form-select">
+            <option value="all">Todas as dificuldades</option>
+            <option value="easy">Fácil</option>
+            <option value="medium">Médio</option>
+            <option value="hard">Difícil</option>
+          </select>
+          <select id="status-filter" class="form-select">
+            <option value="all">Todos os status</option>
+            <option value="studied">Estudados</option>
+            <option value="not-studied">Não estudados</option>
+            <option value="mastered">Dominados</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="dashboard">
+        <div class="sidebar">
+          <h2>Matérias</h2>
+          <ul class="category-list" id="category-list"></ul>
+
+          <div class="progress-section">
+            <h3>Progresso Geral</h3>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+              <span>Concluído:</span>
+              <span id="progress-percent">0%</span>
+            </div>
+          </div>
+
+          <div class="quick-stats">
+            <h3>Resumo</h3>
+            <div class="stat-item">
+              <span>Total de Cards:</span>
+              <strong id="quick-total">0</strong>
+            </div>
+            <div class="stat-item">
+              <span>Estudados:</span>
+              <strong id="quick-studied">0</strong>
+            </div>
+            <div class="stat-item">
+              <span>Dominados:</span>
+              <strong id="quick-mastered">0</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="main-content">
+          <div class="card-container">
+            <div class="card-header">
+              <h2 class="card-title" id="card-category-name">Card de Estudo</h2>
+              <div class="card-actions">
+                <button class="btn btn-primary" id="prev-card">Anterior</button>
+                <span class="card-counter" id="card-counter">1/0</span>
+                <button class="btn btn-success" id="next-card">Próximo</button>
+                <button class="btn btn-info" id="shuffle-cards">
+                  Embaralhar
+                </button>
+              </div>
+            </div>
+
+            <div class="card-content">
+              <div class="card" id="study-card">
+                <div class="card-face card-front">
+                  <div class="card-category" id="card-category">
+                    Carregando...
+                  </div>
+                  <div class="card-question" id="card-question">
+                    Carregando pergunta...
+                  </div>
+                  <div class="card-hint">Clique para ver resposta</div>
+                </div>
+                <div class="card-face card-back">
+                  <div class="card-category" id="card-category-back">
+                    Carregando...
+                  </div>
+                  <div class="card-answer" id="card-answer">
+                    Carregando resposta...
+                  </div>
+                  <div class="card-hint">Clique para voltar</div>
+                </div>
+              </div>
+
+              <div class="card-footer">
+                <div class="difficulty-buttons">
+                  <button
+                    class="btn-difficulty btn-easy"
+                    data-difficulty="easy"
+                  >
+                    Fácil
+                  </button>
+                  <button
+                    class="btn-difficulty btn-medium"
+                    data-difficulty="medium"
+                  >
+                    Médio
+                  </button>
+                  <button
+                    class="btn-difficulty btn-hard"
+                    data-difficulty="hard"
+                  >
+                    Difícil
+                  </button>
+                </div>
+                <div class="action-buttons">
+                  <button class="btn btn-warning" id="hint-btn">Dica</button>
+                  <button class="btn btn-success" id="mark-studied">
+                    Estudado
+                  </button>
+                  <button class="btn btn-primary" id="mark-mastered">
+                    Dominado
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cards-list-section">
+            <h3>Lista de Cards</h3>
+            <div class="cards-grid" id="cards-grid"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-section">
+        <h2>Estatísticas Detalhadas</h2>
+        <div class="stats-grid" id="stats-grid"></div>
+
+        <div class="category-stats">
+          <h3>Progresso por Matéria</h3>
+          <div class="category-progress" id="category-progress"></div>
+        </div>
+      </div>
+
+      <div class="add-card-form">
+        <h2>Adicionar Novo Card</h2>
+        <form id="new-card-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="card-category-input">Matéria</label>
+              <select class="form-select" id="card-category-input" required>
+                <option value="">Selecione uma matéria</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="card-difficulty-input">Dificuldade</label>
+              <select class="form-select" id="card-difficulty-input" required>
+                <option value="easy">Fácil</option>
+                <option value="medium">Médio</option>
+                <option value="hard">Difícil</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="card-question-input">Pergunta</label>
+            <textarea
+              class="form-control"
+              id="card-question-input"
+              rows="3"
+              required
+              placeholder="Digite a pergunta..."
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="card-answer-input">Resposta</label>
+            <textarea
+              class="form-control"
+              id="card-answer-input"
+              rows="3"
+              required
+              placeholder="Digite a resposta..."
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="card-hint-input">Dica (opcional)</label>
+            <input
+              type="text"
+              class="form-control"
+              id="card-hint-input"
+              placeholder="Digite uma dica..."
+            />
+          </div>
+          <div class="form-actions">
+            <button type="reset" class="btn btn-danger">Limpar</button>
+            <button type="submit" class="btn btn-success">
+              Adicionar Card
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="hint-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h3>Dica</h3>
+        <p id="hint-text">Carregando dica...</p>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/apiService.js"></script>
+    <script src="js/cardManager.js"></script>
+    <script src="js/searchManager.js"></script>
+    <script src="js/uiManager.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
